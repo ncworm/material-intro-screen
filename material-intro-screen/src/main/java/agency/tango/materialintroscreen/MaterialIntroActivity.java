@@ -238,6 +238,16 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     /**
+     * Hides any back button
+     */
+    @SuppressWarnings("unused")
+    public void hideBackAndNextButton() {
+        backButton.setVisibility(View.INVISIBLE);
+        skipButton.setVisibility(View.GONE);
+        nextButton.setVisibility(View.INVISIBLE);
+    }
+
+    /**
      * Get translation wrapper for next button
      *
      * @return ViewTranslationWrapper
@@ -426,6 +436,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     private int color(@ColorRes int color) {
         return ContextCompat.getColor(this, color);
     }
+
 
     private class ColorTransitionScrollListener implements IPageScrolledListener {
         @Override
