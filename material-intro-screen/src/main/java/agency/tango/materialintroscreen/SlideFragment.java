@@ -16,9 +16,11 @@ import java.util.Collections;
 import java.util.List;
 
 import agency.tango.materialintroscreen.parallax.ParallaxFragment;
+import agency.tango.materialintroscreen.parallax.ParallaxLinearLayout;
 
 public class SlideFragment extends ParallaxFragment {
     private final static String BACKGROUND_COLOR = "background_color";
+    private final static String BACKGROUND_RESOURCES = "background_resources";
     private static final String BUTTONS_COLOR = "buttons_color";
     private static final String TITLE = "title";
     private static final String DESCRIPTION = "description";
@@ -28,6 +30,7 @@ public class SlideFragment extends ParallaxFragment {
     private static final int PERMISSIONS_REQUEST_CODE = 15621;
 
     private int backgroundColor;
+    private int backgroundResources;
     private int buttonsColor;
     private int image;
     private String title;
@@ -38,12 +41,15 @@ public class SlideFragment extends ParallaxFragment {
     private TextView titleTextView;
     private TextView descriptionTextView;
     private ImageView imageView;
+    private ParallaxLinearLayout linearLayout;
+
 
     public static SlideFragment createInstance(SlideFragmentBuilder builder) {
         SlideFragment slideFragment = new SlideFragment();
 
         Bundle bundle = new Bundle();
         bundle.putInt(BACKGROUND_COLOR, builder.backgroundColor);
+        bundle.putInt(BACKGROUND_RESOURCES, builder.background_resources);
         bundle.putInt(BUTTONS_COLOR, builder.buttonsColor);
         bundle.putInt(IMAGE, builder.image);
         bundle.putString(TITLE, builder.title);
@@ -66,6 +72,7 @@ public class SlideFragment extends ParallaxFragment {
         titleTextView = (TextView) view.findViewById(R.id.txt_title_slide);
         descriptionTextView = (TextView) view.findViewById(R.id.txt_description_slide);
         imageView = (ImageView) view.findViewById(R.id.image_slide);
+        linearLayout = (ParallaxLinearLayout) view.findViewById(R.id.slide_background);
         initializeView();
         return view;
     }
@@ -73,6 +80,7 @@ public class SlideFragment extends ParallaxFragment {
     public void initializeView() {
         Bundle bundle = getArguments();
         backgroundColor = bundle.getInt(BACKGROUND_COLOR);
+        backgroundResources = bundle.getInt(BACKGROUND_RESOURCES);
         buttonsColor = bundle.getInt(BUTTONS_COLOR);
         image = bundle.getInt(IMAGE, 0);
         title = bundle.getString(TITLE);
@@ -117,6 +125,10 @@ public class SlideFragment extends ParallaxFragment {
 
         if (image != 0) {
             imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), image));
+            imageView.setVisibility(View.VISIBLE);
+        }
+        if (backgroundResources != 0) {
+            linearLayout.setBackgroundResource(backgroundResources);
             imageView.setVisibility(View.VISIBLE);
         }
     }
